@@ -9,10 +9,14 @@ import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
 @JsonInclude(value = Include.NON_EMPTY)
+@AllArgsConstructor
+@NoArgsConstructor(force = true)
 public class ApiErrorResponse {
     
     private static final String DEFAULT_ERROR_MESSAGE = "Ocorreu um erro inesperado.";

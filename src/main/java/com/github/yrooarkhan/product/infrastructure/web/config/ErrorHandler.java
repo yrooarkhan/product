@@ -1,5 +1,7 @@
 package com.github.yrooarkhan.product.infrastructure.web.config;
 
+import static java.util.stream.Collectors.toList;
+
 import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Stream;
@@ -19,7 +21,7 @@ import com.github.yrooarkhan.product.infrastructure.web.v1.dto.ApiErrorResponse;
 public class ErrorHandler {
 
     private static final String UNFORMATED_REQUEST_BODY = "O corpo de resposta está indevidamente formatado.";
-    private static final String INVALID_REQUEST_BODY = "Não foi possível realizar a leitura do corpo de resposta recebido.";
+    private static final String INVALID_REQUEST_BODY = "Não foi possível realizar a leitura do corpo de requisição recebido.";
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<ApiErrorResponse> handleInvalidRequestBody(HttpMessageNotReadableException exception) {
@@ -31,7 +33,7 @@ public class ErrorHandler {
     public ResponseEntity<ApiErrorResponse> handleMethodArgumentNotValid(MethodArgumentNotValidException exception) {
         Stream<ObjectError> exceptionErrors = exception.getAllErrors().stream();
         Stream<ObjectError> fieldErrors = exceptionErrors.filter(FieldError.class::isInstance);
-        List<String> fieldsAndMessages = fieldErrors.map(convertToReadableString()).toList();
+        List<String> fieldsAndMessages = fieldErrors.map(convertToReadableString()).collect(toList());
         
         ApiErrorResponse response = new ApiErrorResponse(UNFORMATED_REQUEST_BODY);
         response.addInfo(fieldsAndMessages);

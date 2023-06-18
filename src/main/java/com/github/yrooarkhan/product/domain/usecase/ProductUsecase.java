@@ -1,5 +1,7 @@
 package com.github.yrooarkhan.product.domain.usecase;
 
+import static java.util.stream.Collectors.toList;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +27,7 @@ public class ProductUsecase {
         Pageable pageable = searchParams.toPageable();
         Page<ProductData> productsDataPage = productRepository.findAllWithStock(pageable);
         List<ProductData> productsData = productsDataPage.getContent();
-        List<Product> products = productsData.stream().map(Product::new).toList();
+        List<Product> products = productsData.stream().map(Product::new).collect(toList());
         return new PageImpl<>(products, pageable, productsDataPage.getSize());
     }
 

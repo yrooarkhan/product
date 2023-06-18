@@ -4,12 +4,16 @@ import java.math.BigDecimal;
 
 import com.github.yrooarkhan.product.infrastructure.persistent.ProductData;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Data
+@Builder
 @ToString
+@AllArgsConstructor
 @NoArgsConstructor
 public class Product {
     
